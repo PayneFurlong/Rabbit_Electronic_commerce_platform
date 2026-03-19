@@ -1,4 +1,20 @@
-<script setup></script>
+<script setup>
+import { getCategoryAPI } from '@/apis/Layout'
+import { ref } from 'vue'
+
+// 声明空数据用于存放请求回来的数据
+const categoryList = ref([])
+
+// 获取头部列表数据
+const getCategory = async () => {
+  // 请求数据
+  const res = await getCategoryAPI()
+  // 将数据存放于容器中
+  categoryList.value = res.result
+  console.log(res.result)
+}
+getCategory()
+</script>
 
 <template>
   <header class="app-header">
@@ -7,12 +23,13 @@
         <RouterLink to="/">小兔鲜</RouterLink>
       </h1>
       <ul class="app-header-nav">
-        <li class="home">
-          <RouterLink to="/">首页</RouterLink>
+        <li
+          class="home"
+          v-for="item in categoryList"
+          :key="item.id"
+        >
+          <RouterLink to="/">{{ item.name }}</RouterLink>
         </li>
-        <li><RouterLink to="/">居家</RouterLink></li>
-        <li><RouterLink to="/">美食</RouterLink></li>
-        <li><RouterLink to="/">服饰</RouterLink></li>
       </ul>
       <div class="search">
         <i class="iconfont icon-search"></i>
