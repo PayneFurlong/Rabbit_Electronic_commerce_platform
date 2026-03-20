@@ -1,5 +1,6 @@
 <script setup>
 import { useCategoryStore } from '@/stores/category'
+
 // 获取 useCategoryStore
 const categoryStore = useCategoryStore()
 </script>
