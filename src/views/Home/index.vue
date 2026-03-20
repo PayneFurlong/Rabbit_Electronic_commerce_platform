@@ -1,3 +1,17 @@
+<script setup>
+import HomeCategory from './components/HomeCategory.vue'
+import HomeBanner from './components/HomeBanner.vue'
+import HomeNew from './components/HomeNew.vue'
+import HomeHot from './components/HomeHot.vue'
+import HomeProduct from './components/HomeProduct.vue'
+</script>
+
 <template>
-  <div>HomePage</div>
+  <div class="container">
+    <HomeCategory></HomeCategory>
+    <HomeBanner></HomeBanner>
+  </div>
+  <HomeNew></HomeNew>
+  <HomeHot></HomeHot>
+  <HomeProduct></HomeProduct>
 </template>
