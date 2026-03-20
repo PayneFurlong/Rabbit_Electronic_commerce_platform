@@ -1,19 +1,9 @@
 <script setup>
-import { getCategoryAPI } from '@/apis/Layout'
-import { ref } from 'vue'
+import { useCategoryStore } from '@/stores/category'
+// import { ref } from 'vue'
 
-// 声明空数据用于存放请求回来的数据
-const categoryList = ref([])
-
-// 获取头部列表数据
-const getCategory = async () => {
-  // 请求数据
-  const res = await getCategoryAPI()
-  // 将数据存放于容器中
-  categoryList.value = res.result
-  console.log(res.result)
-}
-getCategory()
+// 使用 Pinia 中的数据
+const categoryStore = useCategoryStore()
 </script>
 
 <template>
@@ -25,7 +15,7 @@ getCategory()
       <ul class="app-header-nav">
         <li
           class="home"
-          v-for="item in categoryList"
+          v-for="item in categoryStore.categoryList"
           :key="item.id"
         >
           <RouterLink to="/">{{ item.name }}</RouterLink>
