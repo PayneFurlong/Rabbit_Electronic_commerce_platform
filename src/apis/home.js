@@ -1,13 +1,13 @@
-import http from '@/utils/http'
+import request from '@/utils/http'
 
 // 获取 banner 轮播图
-export const getBannerAPI = () => http.get('/home/banner')
+export const getBannerAPI = () => request.get('/home/banner')
 
 // 获取新鲜好物
-export const getNewAPI = () => http.get('/home/new')
+export const getNewAPI = () => request.get('/home/new')
 
 // 获取人气推荐
-export const getHotAPI = () => http.get('/home/hot')
+export const getHotAPI = () => request.get('/home/hot')
 
 // 获取所有商品列表模块
-export const getGoodsAPI = () => http.get('/home/goods')
+export const getGoodsAPI = () => request.get('/home/goods')
