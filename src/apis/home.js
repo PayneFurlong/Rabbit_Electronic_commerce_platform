@@ -1,7 +1,16 @@
 import request from '@/utils/http'
 
 // 获取 banner 轮播图
-export const getBannerAPI = () => request.get('/home/banner')
+export const getBannerAPI = (params = {}) => {
+  // 默认值为 1，商品为 2
+  const { distributionSite = '1' } = params
+  // 发送请求
+  return request.get('/home/banner', {
+    params: {
+      distributionSite
+    }
+  })
+}
 
 // 获取新鲜好物
 export const getNewAPI = () => request.get('/home/new')
