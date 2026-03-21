@@ -8,3 +8,6 @@ export const getNewAPI = () => http.get('/home/new')
 
 // 获取人气推荐
 export const getHotAPI = () => http.get('/home/hot')
+
+// 获取所有商品列表模块
+export const getGoodsAPI = () => http.get('/home/goods')
