@@ -14,7 +14,7 @@ const router = createRouter({
       children: [
         // 当选中 / 时，里面的 children 的 path 为 '' 时默认也渲染
         { path: '', component: Home },
-        { path: 'category', component: Category }
+        { path: 'category/:id', component: Category }
       ]
     },
     { path: '/login', component: Login }
