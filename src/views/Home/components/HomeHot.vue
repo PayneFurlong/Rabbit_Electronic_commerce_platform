@@ -28,11 +28,11 @@ HotList()
       >
         <RouterLink to="/">
           <img
-            :src="item.picture"
+            v-img-lazy="item.picture"
             alt=""
           />
-          <p class="name">{{ item.name }}</p>
-          <p class="price">&yen;{{ item.price }}</p>
+          <p class="name">{{ item.title }}</p>
+          <p class="desc">{{ item.alt }}</p>
         </RouterLink>
       </li>
     </ul>
