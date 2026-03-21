@@ -10,7 +10,6 @@ const getBanner = async () => {
   const res = await getBannerAPI()
   // 存入 bannerList
   bannerList.value = res.result
-  console.log(res.result)
 }
 getBanner()
 </script>

@@ -9,7 +9,6 @@ import { onMounted } from 'vue'
 const categoryStore = useCategoryStore()
 // 发送数据请求
 onMounted(() => categoryStore.getCategory())
-console.log(categoryStore.categoryList)
 </script>
 
 <template>
