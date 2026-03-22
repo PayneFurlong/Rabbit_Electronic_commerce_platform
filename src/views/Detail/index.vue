@@ -146,10 +146,10 @@ getGoodsDetail()
             </div>
             <!-- 24热榜+专题推荐 -->
             <div class="goods-aside">
-              <!-- 24h -->
-              <DetailHot></DetailHot>
-              <!-- week -->
-              <DetailHot></DetailHot>
+              <!-- 24小时热销榜 -->
+              <DetailHot :hot-type="1"></DetailHot>
+              <!-- 周热销榜 -->
+              <DetailHot :hot-type="2"></DetailHot>
             </div>
           </div>
         </div>
