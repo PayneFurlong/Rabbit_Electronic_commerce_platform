@@ -28,7 +28,7 @@ const reqData = ref({
   pageSize: 20,
   sortField: 'publishTime'
 })
-// 获取导航数据
+// 根据导航数据进行渲染
 const getGoodList = async () => {
   // 请求数据
   const res = await getSubCategoryAPI(reqData.value)
@@ -37,6 +37,14 @@ const getGoodList = async () => {
   console.log(res.result)
 }
 getGoodList()
+
+// tab 切换回调
+const tabChange = () => {
+  // 重置页码
+  reqData.value.page = 1
+  // 重新渲染
+  getGoodList()
+}
 </script>
 
 <template>
@@ -52,7 +60,15 @@ getGoodList()
       </el-breadcrumb>
     </div>
     <div class="sub-container">
-      <el-tabs>
+      <!-- 
+        1. el-tabs 中的 v-model 所绑定的数据是
+           点击了哪个 el-tab-pane 选项就填入谁的 name
+        2. el-tabs 绑定的事件 @tab-change 是 activeName 发生改变时触发
+       -->
+      <el-tabs
+        v-model="reqData.sortField"
+        @tab-change="tabChange"
+      >
         <el-tab-pane
           label="最新商品"
           name="publishTime"
