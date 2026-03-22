@@ -26,7 +26,7 @@ getNewList()
         v-for="item in newList"
         :key="item.id"
       >
-        <RouterLink to="/">
+        <RouterLink :to="`/detail/${item.id}`">
           <img
             :src="item.picture"
             alt=""
