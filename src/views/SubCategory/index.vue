@@ -1,4 +1,23 @@
-<script setup></script>
+<script setup>
+import { getCategoryFilterAPI } from '@/apis/category'
+import { ref } from 'vue'
+import { useRoute } from 'vue-router'
+
+// 获取面包屑导航数据
+// 获取路由实例
+const route = useRoute()
+// 二级分类列表数据容器
+const categoryData = ref({})
+// 获取二级分类列表数据
+const getCategoryFilter = async () => {
+  // 请求数据
+  const res = await getCategoryFilterAPI(route.params.id)
+  // 存放至容器
+  categoryData.value = res.result
+  console.log(res.result)
+}
+getCategoryFilter()
+</script>
 
 <template>
   <div class="container">
@@ -6,8 +25,10 @@
     <div class="bread-container">
       <el-breadcrumb separator=">">
         <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: '/' }">居家 </el-breadcrumb-item>
-        <el-breadcrumb-item>居家生活用品</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: `/category/${categoryData.parentId}` }"
+          >{{ categoryData.parentName }}
+        </el-breadcrumb-item>
+        <el-breadcrumb-item>{{ categoryData.name }}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <div class="sub-container">

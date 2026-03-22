@@ -7,3 +7,11 @@ export const getCategoryAPI = (id) =>
       id
     }
   })
+
+// 获取二级分类列表数据 id 为分类 id
+export const getCategoryFilterAPI = (id) =>
+  request.get('/category/sub/filter', {
+    params: {
+      id
+    }
+  })
