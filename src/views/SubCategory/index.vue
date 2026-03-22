@@ -45,6 +45,25 @@ const tabChange = () => {
   // 重新渲染
   getGoodList()
 }
+
+// 控制加载的布尔值
+const disabled = ref(false)
+// 加载更多功能
+const load = async () => {
+  // 获取下一页的数据
+  reqData.value.page++
+  // 请求数据
+  const res = await getSubCategoryAPI(reqData.value)
+  // 添加数据至列表
+  // goodList.value = [...goodList.value, ...res.result.items]
+  goodList.value.push(...res.result.items)
+  // 加载完毕，停止监听
+  // 以返回的数组长度为 0 时即为停止条件
+  if (res.result.items.length === 0) {
+    // 停止加载
+    disabled.value = true
+  }
+}
 </script>
 
 <template>
@@ -82,7 +101,11 @@ const tabChange = () => {
           name="evaluateNum"
         ></el-tab-pane>
       </el-tabs>
-      <div class="body">
+      <div
+        class="body"
+        v-infinite-scroll="load"
+        :infinite-scroll-disabled="disabled"
+      >
         <!-- 商品列表-->
         <GoodsItem
           v-for="item in goodList"
