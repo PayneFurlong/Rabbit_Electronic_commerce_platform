@@ -33,7 +33,10 @@ const router = createRouter({
         }
       ]
     },
-    { path: '/login', component: Login }
+    {
+      path: '/login',
+      component: Login
+    }
   ],
   // 路由滚动行为的配置项
   scrollBehavior() {
