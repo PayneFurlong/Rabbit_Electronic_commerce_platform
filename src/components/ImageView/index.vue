@@ -21,13 +21,18 @@ const enterHandler = (i) => {
 
 // 获取鼠标相对位置
 const target = ref(null)
-// 解构鼠标对于大盒子的坐标
-const { elementX, elementY } = useMouseInElement(target)
+// 解构鼠标对于大盒子的坐标和是否在盒子内的判断
+const { elementX, elementY, isOutside } = useMouseInElement(target)
 // 声明遮罩层的坐标
 const left = ref(0)
 const top = ref(0)
+// 声明大图的坐标字段
+const positionX = ref(0)
+const positionY = ref(0)
 // 控制滑块跟随鼠标移动(监听elementX/Y变化，一旦变化 重新设置left/top)
-watch([elementX, elementY], () => {
+watch([elementX, elementY, isOutside], () => {
+  // 优化性能 如果鼠标未进入盒子则不执行代码
+  if (isOutside.value) return
   // 有效范围内控制滑块的距离
   // 横向
   // 正常范围内(100 ~ 300)
@@ -48,6 +53,9 @@ watch([elementX, elementY], () => {
   if (elementY.value < 100) top.value = 0
   // 边界处理 Y 大于 300 时
   if (elementY.value > 300) top.value = 200
+  // 控制大图的显示
+  positionX.value = -left.value * 2
+  positionY.value = -top.value * 2
 })
 </script>
 
@@ -66,6 +74,7 @@ watch([elementX, elementY], () => {
       <div
         class="layer"
         :style="{ left: `${left}px`, top: `${top}px` }"
+        v-show="!isOutside"
       ></div>
     </div>
     <!-- 小图列表 -->
@@ -87,12 +96,12 @@ watch([elementX, elementY], () => {
       class="large"
       :style="[
         {
-          backgroundImage: `url(${imageList[0]})`,
-          backgroundPositionX: `0px`,
-          backgroundPositionY: `0px`
+          backgroundImage: `url(${imageList[activeIndex]})`,
+          backgroundPositionX: `${positionX}px`,
+          backgroundPositionY: `${positionY}px`
         }
       ]"
-      v-show="false"
+      v-show="!isOutside"
     ></div>
   </div>
 </template>
