@@ -1,14 +1,23 @@
 <script setup>
 import { useMouseInElement } from '@vueuse/core'
 import { ref, watch } from 'vue'
+
+// 传入的图片列表
+defineProps({
+  imageList: {
+    type: Array,
+    default: () => {}
+  }
+})
+
 // 图片列表
-const imageList = [
-  'https://yanxuan-item.nosdn.127.net/d917c92e663c5ed0bb577c7ded73e4ec.png',
-  'https://yanxuan-item.nosdn.127.net/e801b9572f0b0c02a52952b01adab967.jpg',
-  'https://yanxuan-item.nosdn.127.net/b52c447ad472d51adbdde1a83f550ac2.jpg',
-  'https://yanxuan-item.nosdn.127.net/f93243224dc37674dfca5874fe089c60.jpg',
-  'https://yanxuan-item.nosdn.127.net/f881cfe7de9a576aaeea6ee0d1d24823.jpg'
-]
+// const imageList = [
+//   'https://yanxuan-item.nosdn.127.net/d917c92e663c5ed0bb577c7ded73e4ec.png',
+//   'https://yanxuan-item.nosdn.127.net/e801b9572f0b0c02a52952b01adab967.jpg',
+//   'https://yanxuan-item.nosdn.127.net/b52c447ad472d51adbdde1a83f550ac2.jpg',
+//   'https://yanxuan-item.nosdn.127.net/f93243224dc37674dfca5874fe089c60.jpg',
+//   'https://yanxuan-item.nosdn.127.net/f881cfe7de9a576aaeea6ee0d1d24823.jpg'
+// ]
 
 // 小图切换大图显示
 // 小图列表的下标索引
@@ -43,7 +52,6 @@ watch([elementX, elementY, isOutside], () => {
   if (elementX.value < 100) left.value = 0
   // 边界处理 X 大于 300 时
   if (elementX.value > 300) left.value = 200
-
   // 纵向
   // 正常范围内(100 ~ 300)
   if (elementY.value > 100 && elementY.value < 300) {
