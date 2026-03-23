@@ -31,7 +31,6 @@ const getHotList = async () => {
   })
   // 存放数据
   hotList.value = res.result
-  console.log(res.result)
 }
 getHotList()
 </script>

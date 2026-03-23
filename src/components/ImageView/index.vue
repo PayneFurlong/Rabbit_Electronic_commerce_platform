@@ -1,5 +1,6 @@
 <script setup>
-import { ref } from 'vue'
+import { useMouseInElement } from '@vueuse/core'
+import { ref, watch } from 'vue'
 // 图片列表
 const imageList = [
   'https://yanxuan-item.nosdn.127.net/d917c92e663c5ed0bb577c7ded73e4ec.png',
@@ -14,8 +15,40 @@ const imageList = [
 const activeIndex = ref(0)
 // 鼠标经过小图事件
 const enterHandler = (i) => {
+  // 将索引号存入容器
   activeIndex.value = i
 }
+
+// 获取鼠标相对位置
+const target = ref(null)
+// 解构鼠标对于大盒子的坐标
+const { elementX, elementY } = useMouseInElement(target)
+// 声明遮罩层的坐标
+const left = ref(0)
+const top = ref(0)
+// 控制滑块跟随鼠标移动(监听elementX/Y变化，一旦变化 重新设置left/top)
+watch([elementX, elementY], () => {
+  // 有效范围内控制滑块的距离
+  // 横向
+  // 正常范围内(100 ~ 300)
+  if (elementX.value > 100 && elementX.value < 300) {
+    left.value = elementX.value - 100
+  }
+  // 边界处理 X 小于 100 时
+  if (elementX.value < 100) left.value = 0
+  // 边界处理 X 大于 300 时
+  if (elementX.value > 300) left.value = 200
+
+  // 纵向
+  // 正常范围内(100 ~ 300)
+  if (elementY.value > 100 && elementY.value < 300) {
+    top.value = elementY.value - 100
+  }
+  // 边界处理 Y 小于 100 时
+  if (elementY.value < 100) top.value = 0
+  // 边界处理 Y 大于 300 时
+  if (elementY.value > 300) top.value = 200
+})
 </script>
 
 <template>
@@ -32,7 +65,7 @@ const enterHandler = (i) => {
       <!-- 蒙层小滑块 -->
       <div
         class="layer"
-        :style="{ left: `0px`, top: `0px` }"
+        :style="{ left: `${left}px`, top: `${top}px` }"
       ></div>
     </div>
     <!-- 小图列表 -->

@@ -15,7 +15,6 @@ const getGoodsDetail = async () => {
   const res = await getDetailAPI(route.params.id)
   // 存入容器
   goods.value = res.result
-  console.log(res.result)
 }
 getGoodsDetail()
 </script>
