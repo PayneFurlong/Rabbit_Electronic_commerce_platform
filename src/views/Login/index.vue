@@ -6,7 +6,7 @@ import { ref } from 'vue'
 const formData = ref({
   account: '',
   password: '',
-  agree: ''
+  agree: false
 })
 
 const rules = {
@@ -25,6 +25,18 @@ const rules = {
       pattern: /^\S{6,14}$/,
       message: '密码必须是 6-14 位字符',
       trigger: 'blur'
+    }
+  ],
+  agree: [
+    {
+      validator: (rule, value, callback) => {
+        // 自定义校验规则
+        if (!value) {
+          callback(new Error('请勾选用户协议'))
+        } else {
+          callback()
+        }
+      }
     }
   ]
 }
@@ -77,7 +89,10 @@ const rules = {
                 label-width="22px"
                 prop="agree"
               >
-                <el-checkbox size="large">
+                <el-checkbox
+                  v-model="formData.agree"
+                  size="large"
+                >
                   我已同意隐私条款和服务条款
                 </el-checkbox>
               </el-form-item>
