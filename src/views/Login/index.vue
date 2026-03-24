@@ -1,14 +1,17 @@
 <script setup>
-import { getLoginAPI } from '@/apis/user'
 import 'element-plus/theme-chalk/el-message.css'
 import { ElMessage } from 'element-plus'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/user'
+
+// 获取 userStore
+const userStore = useUserStore()
 
 // 表单校验(账号名 + 密码)
 const formData = ref({
-  account: '',
-  password: '',
+  account: 'heima290',
+  password: 'hm#qd@23!',
   agree: false
 })
 
@@ -60,8 +63,7 @@ const loginTo = () => {
     // 以valid作为判断条件，如果通过校验才执行登录逻辑
     if (valid) {
       // 校验成功
-      const res = await getLoginAPI({ account, password })
-      console.log(res.result)
+      await userStore.getUserInfo({ account, password })
       // 提示用户
       // ElMessage({ type: 'success', message: '登录成功' })
       ElMessage.success('登录成功')
