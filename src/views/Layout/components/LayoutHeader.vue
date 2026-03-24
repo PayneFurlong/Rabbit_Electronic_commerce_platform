@@ -1,5 +1,6 @@
 <script setup>
 import { useCategoryStore } from '@/stores/category'
+import HeaderCart from './HeaderCart.vue'
 // import { ref } from 'vue'
 
 // 使用 Pinia 中的数据
@@ -33,6 +34,7 @@ const categoryStore = useCategoryStore()
         />
       </div>
       <!-- 头部购物车 -->
+      <HeaderCart></HeaderCart>
     </div>
   </header>
 </template>
