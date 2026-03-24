@@ -1,5 +1,9 @@
 <script setup>
+import { getLoginAPI } from '@/apis/user'
+import 'element-plus/theme-chalk/el-message.css'
+import { ElMessage } from 'element-plus'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 // 表单校验(账号名 + 密码)
 const formData = ref({
@@ -42,16 +46,27 @@ const rules = {
 }
 
 // 获取表单元素进行统一校验(预校验)
+// 获取路由器
+const router = useRouter()
 // 获取表单元素
 const formRef = ref(null)
 // 点击登录事件
 const loginTo = () => {
+  // 为调用api提供账密参数
+  const { account, password } = formData.value
   // 统一校验(预校验)
-  formRef.value.validate((valid) => {
+  formRef.value.validate(async (valid) => {
     // valid：所有表单都通过校验其值才为 true
     // 以valid作为判断条件，如果通过校验才执行登录逻辑
     if (valid) {
       // 校验成功
+      const res = await getLoginAPI({ account, password })
+      console.log(res.result)
+      // 提示用户
+      // ElMessage({ type: 'success', message: '登录成功' })
+      ElMessage.success('登录成功')
+      // 跳转首页
+      router.replace('/')
     }
   })
 }
