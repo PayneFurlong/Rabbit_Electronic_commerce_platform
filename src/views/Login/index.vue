@@ -2,7 +2,6 @@
 import { ref } from 'vue'
 
 // 表单校验(账号名 + 密码)
-
 const formData = ref({
   account: '',
   password: '',
@@ -31,6 +30,7 @@ const rules = {
     {
       validator: (rule, value, callback) => {
         // 自定义校验规则
+        // 勾选就通过校验，反之不通过
         if (!value) {
           callback(new Error('请勾选用户协议'))
         } else {
@@ -40,6 +40,24 @@ const rules = {
     }
   ]
 }
+
+// 获取表单元素进行统一校验(预校验)
+// 获取表单元素
+const formRef = ref(null)
+// 点击登录事件
+const loginTo = () => {
+  // 统一校验(预校验)
+  formRef.value.validate((valid) => {
+    // valid：所有表单都通过校验其值才为 true
+    // 以valid作为判断条件，如果通过校验才执行登录逻辑
+    if (valid) {
+      // 校验成功
+    }
+  })
+}
+// 1. 用户名和密码只需要通过简单的配置 (看文档的方式 - 复杂功能通过多个不同组件拆解)
+// 2. 同意协议 自定义规则 validator：(rule, value, callback) => { }
+// 3. 统一校验 通过调用 form 实例的方法 validate -> true
 </script>
 
 <template>
@@ -72,6 +90,7 @@ const rules = {
               status-icon
               :model="formData"
               :rules="rules"
+              ref="formRef"
             >
               <el-form-item
                 label="账户"
@@ -99,6 +118,7 @@ const rules = {
               <el-button
                 size="large"
                 class="subBtn"
+                @click="loginTo"
                 >点击登录</el-button
               >
             </el-form>
