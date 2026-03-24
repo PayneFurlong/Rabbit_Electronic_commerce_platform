@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 // 购物车数据
 export const useCartStore = defineStore(
@@ -35,10 +35,22 @@ export const useCartStore = defineStore(
       cartList.value = cartList.value.filter((item) => item.skuId !== skuId)
     }
 
+    // 计算属性
+    // 1. 总的数量 所有项的 count 之和
+    const totalCount = computed(() =>
+      cartList.value.reduce((sum, item) => sum + item.count, 0)
+    )
+    // 2. 总的价格 所有项的 count * price 之和
+    const totalPrice = computed(() =>
+      cartList.value.reduce((sum, item) => sum + item.count * item.price, 0)
+    )
+
     return {
       cartList,
       addCart,
-      delCart
+      delCart,
+      totalCount,
+      totalPrice
     }
   },
   {
