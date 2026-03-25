@@ -96,8 +96,9 @@ const singleCheck = (i, value) => {
       <!-- 操作栏 -->
       <div class="action">
         <div class="batch">
-          共 {{ cartStore.cartList.length }} 件商品，已选择 2 件，商品合计：
-          <span class="red">¥ 200.00 </span>
+          共 {{ cartStore.totalCount }} 件商品，已选择
+          {{ cartStore.allCount }} 件，商品合计：
+          <span class="red">¥ {{ cartStore.allPrice.toFixed(2) }} </span>
         </div>
         <div class="total">
           <el-button
