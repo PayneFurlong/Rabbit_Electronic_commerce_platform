@@ -22,7 +22,7 @@ const cartStore = useCartStore()
         >
           <RouterLink to="">
             <img
-              :src="i.picture[0]"
+              :src="i.picture"
               alt=""
             />
             <div class="center">

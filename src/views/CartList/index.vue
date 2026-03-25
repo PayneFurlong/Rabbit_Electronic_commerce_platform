@@ -47,7 +47,7 @@ const singleCheck = (i, value) => {
                 <div class="goods">
                   <RouterLink to="/"
                     ><img
-                      :src="i.picture[0]"
+                      :src="i.picture"
                       alt=""
                   /></RouterLink>
                   <div>
