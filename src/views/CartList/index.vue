@@ -3,6 +3,12 @@ import { useCartStore } from '@/stores/cartStore'
 
 // 获取购物车列表数据
 const cartStore = useCartStore()
+
+// 单选回调
+const singleCheck = (i, value) => {
+  // 除了 selected 还要补充一个用来筛选的参数 - skuId
+  cartStore.singleCheck(i.skuId, value)
+}
 </script>
 
 <template>
@@ -29,7 +35,10 @@ const cartStore = useCartStore()
               :key="i.id"
             >
               <td>
-                <el-checkbox />
+                <el-checkbox
+                  :modelValue="i.selected"
+                  @change="(value) => singleCheck(i, value)"
+                />
               </td>
               <td>
                 <div class="goods">
