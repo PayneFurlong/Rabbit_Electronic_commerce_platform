@@ -2,7 +2,8 @@
 import { getCheckInfoAPI } from '@/apis/checkout'
 import { ref } from 'vue'
 
-const checkInfo = ref({}) // 订单对象
+// 订单对象
+const checkInfo = ref({})
 // 默认地址
 const curAddress = ref({})
 
@@ -17,14 +18,28 @@ const getCheckInfo = async () => {
   const itme = checkInfo.value.userAddresses.find(
     (item) => item.isDefault === 0
   )
+  // 赋值默认地址
   curAddress.value = itme
-
-  console.log(res.result)
 }
 getCheckInfo()
 
 // 控制弹窗打开
 const showDialog = ref(false)
+
+// 切换地址回调
+// 激活的对象
+const activeAddress = ref({})
+const switchAddress = (item) => {
+  // 将选定项存入容器
+  activeAddress.value = item
+}
+// 确认切换
+const confirm = () => {
+  // 将展示的地址切换为选中的
+  curAddress.value = activeAddress.value
+  // 关闭弹窗
+  showDialog.value = false
+}
 </script>
 
 <template>
@@ -187,8 +202,10 @@ const showDialog = ref(false)
     <div class="addressWrapper">
       <div
         class="text item"
+        :class="{ active: item.id === activeAddress.id }"
         v-for="item in checkInfo.userAddresses"
         :key="item.id"
+        @click="switchAddress(item)"
       >
         <ul>
           <li>
@@ -201,8 +218,12 @@ const showDialog = ref(false)
     </div>
     <template #footer>
       <span class="dialog-footer">
-        <el-button>取消</el-button>
-        <el-button type="primary">确定</el-button>
+        <el-button @click="showDialog = false">取消</el-button>
+        <el-button
+          type="primary"
+          @click="confirm"
+          >确定</el-button
+        >
       </span>
     </template>
   </el-dialog>
