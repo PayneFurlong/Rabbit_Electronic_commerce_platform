@@ -1,5 +1,5 @@
 <script setup>
-import { useCategoryStore } from '@/stores/category'
+import { useCategoryStore } from '@/stores/categoryStore'
 
 // 获取 useCategoryStore
 const categoryStore = useCategoryStore()

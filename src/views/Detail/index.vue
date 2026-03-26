@@ -25,7 +25,6 @@ let skuObj = {}
 // sku规格被操作时
 const skuChange = (sku) => {
   skuObj = sku
-  console.log(sku)
 }
 
 // count 购物件数
@@ -41,7 +40,6 @@ const cartStore = useCartStore()
 const addCart = () => {
   if (skuObj.skuId) {
     // 规格已选择
-    console.log(skuObj.skuId)
     cartStore.addCart({
       id: goods.value.id,
       name: goods.value.name,

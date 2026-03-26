@@ -1,6 +1,6 @@
 <script setup>
 // vueUse
-import { useCategoryStore } from '@/stores/category'
+import { useCategoryStore } from '@/stores/categoryStore'
 import { useScroll } from '@vueuse/core'
 // import { ref } from 'vue'
 
