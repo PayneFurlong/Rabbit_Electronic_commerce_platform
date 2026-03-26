@@ -4,7 +4,6 @@ import { ElMessage } from 'element-plus'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/userStore'
-import { useCartStore } from '@/stores/cartStore'
 
 // 获取 userStore
 const userStore = useUserStore()
@@ -49,9 +48,6 @@ const rules = {
   ]
 }
 
-// 获取购物车仓库
-const cartStore = useCartStore()
-
 // 获取表单元素进行统一校验(预校验)
 // 获取路由器
 const router = useRouter()
@@ -68,8 +64,6 @@ const loginTo = () => {
     if (valid) {
       // 校验成功
       await userStore.getUserInfo({ account, password })
-      // 获取最新的购物车列表
-      cartStore.updateNewList()
       // 提示用户
       // ElMessage({ type: 'success', message: '登录成功' })
       ElMessage.success('登录成功')

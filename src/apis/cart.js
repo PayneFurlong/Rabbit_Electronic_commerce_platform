@@ -13,3 +13,6 @@ export const delCartAPI = (ids) =>
       ids
     }
   })
+
+// 合并购物车
+export const mergeCartAPI = (data) => request.post('/member/cart/merge', data)
