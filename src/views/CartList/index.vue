@@ -104,6 +104,7 @@ const singleCheck = (i, value) => {
           <el-button
             size="large"
             type="primary"
+            @click="$router.push('/checkout')"
             >下单结算</el-button
           >
         </div>
