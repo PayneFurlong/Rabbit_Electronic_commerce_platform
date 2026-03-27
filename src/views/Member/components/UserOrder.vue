@@ -27,11 +27,19 @@ const getOrderList = async () => {
   orderList.value = res.result.items
 }
 getOrderList()
+
+// tab 栏切换事件
+const tabChange = (type) => {
+  // 将激活的 tab 栏 id 赋值给提交参数对象
+  params.value.orderState = type
+  // 重新发送请求进行渲染
+  getOrderList()
+}
 </script>
 
 <template>
   <div class="order-container">
-    <el-tabs>
+    <el-tabs @tabChange="tabChange">
       <!-- tab切换 -->
       <el-tab-pane
         v-for="item in tabTypes"
