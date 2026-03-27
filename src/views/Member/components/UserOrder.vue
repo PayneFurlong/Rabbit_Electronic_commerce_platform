@@ -13,10 +13,15 @@ const tabTypes = [
 ]
 // 订单列表
 const orderList = ref([])
+// 订单总数
+const total = ref(0)
 // 请求发送的参数
 const params = ref({
+  // tab 栏类型
   orderState: 0,
+  // 页码
   page: 1,
+  // 每页条数
   pageSize: 2
 })
 // 获取订单列表
@@ -25,6 +30,8 @@ const getOrderList = async () => {
   const res = await getUserOrderAPI(params.value)
   // 存入容器
   orderList.value = res.result.items
+  // 存入容器
+  total.value = res.result.counts
 }
 getOrderList()
 
@@ -32,6 +39,14 @@ getOrderList()
 const tabChange = (type) => {
   // 将激活的 tab 栏 id 赋值给提交参数对象
   params.value.orderState = type
+  // 重新发送请求进行渲染
+  getOrderList()
+}
+
+// 底部页码切换
+const pageChange = (pageNum) => {
+  // 更改发送页码请求
+  params.value.page = pageNum
   // 重新发送请求进行渲染
   getOrderList()
 }
@@ -162,6 +177,9 @@ const tabChange = (type) => {
           <!-- 分页 -->
           <div class="pagination-container">
             <el-pagination
+              :total="total"
+              :pageSize="params.pageSize"
+              @currentChange="pageChange"
               background
               layout="prev, pager, next"
             />
