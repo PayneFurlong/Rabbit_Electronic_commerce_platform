@@ -27,19 +27,7 @@
 - 实现商品列表无限滚动加载，提升用户浏览体验  
 - 使用 Pinia 缓存数据，减少重复请求
 
-## 项目结构
 
-src
- ├─ api
- ├─ assets
- ├─ components
- ├─ composables
- ├─ directives
- ├─ router
- ├─ stores
- ├─ styles
- ├─ utils
- └─ views
 
 ## 项目截图
 
@@ -76,3 +64,16 @@ npm run dev
 # 打包
 npm run build
 
+## 项目结构
+
+src
+ ├─ api
+ ├─ assets
+ ├─ components
+ ├─ composables
+ ├─ directives
+ ├─ router
+ ├─ stores
+ ├─ styles
+ ├─ utils
+ └─ views
